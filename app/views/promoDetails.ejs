@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<h2>Détails de la promo <%= promo.name %></h2>
+
+<%# on veut afficher les infos POUR CHAQUE étudiant %>
+
+<div class="main__container">
+    <% for(let student of students) { %>
+        <div class="main__promo">
+            <h3 class="promo__name"><%= student.first_name %> <%= student.last_name %></h3>
+            <img class="promo__image" src="https://github.com/<%= student.github_username %>.png" alt="">
+        </div>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

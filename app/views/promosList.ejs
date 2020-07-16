@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<h2>Liste des promos</h2>
+
+<%# on veut afficher les infos POUR CHAQUE promo %>
+
+<div class="main__container">
+    <% for(let promo of promos) { %>
+        <a href="/promo/<%= promo.id %>">
+            <div class="main__promo">
+                <h3 class="promo__name"> <%= promo.name %> </h3>
+                <img class="promo__image" src="<%= promo.github_organization %>.png" alt="">
+            </div>
+        </a>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

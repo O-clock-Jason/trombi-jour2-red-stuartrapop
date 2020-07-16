@@ -1,0 +1,26 @@
+{
+  "name": "trombinoclock-red",
+  "version": "1.0.0",
+  "description": "Trombinoscope des promos de l'école O'clock",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Jason/trombinoclock-RED.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Jason/trombinoclock-RED/issues"
+  },
+  "homepage": "https://github.com/O-clock-Jason/trombinoclock-RED#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "pg": "^8.3.0"
+  }
+}
