@@ -1,4 +1,3 @@
-
 const pg = require('pg');
 
 
@@ -9,7 +8,7 @@ const client = new pg.Client({
     password: process.env.DB_PASSWORD
 });
 
-// 3. on va dire à ce client "connecte toi !"
+
 client.connect();
 
 
@@ -20,9 +19,9 @@ client.connect();
 
 
 // On récupère les infos des promos dans le json
-const promosJSON = require('../../data/promos.json');
+//const promosJSON = require('../../data/promos.json');
 // pareil pour les étudiants
-const studentsJSON = require('../../data/students.json');
+//const studentsJSON = require('../../data/students.json');
 
 const promoController = {
 
@@ -31,43 +30,25 @@ const promoController = {
         // puis render la view qui va bien.
 
         client.query('SELECT * FROM promo', (err, data) => {
-                console.log("ERROR : ", err);
-                // data contient plusieurs infos intéressantes : 
-                //  - data.rowCount contient le NOMBRE de résultat
-                //  - data.rows contient les vrais résultats. Bonne nouvelle : ces résultats sont des objets JS !!
-                console.log(data.rows);
-                
-                res.render('promosList', {
-                    promos: data.rows,
-                });
-             });
-        
-    },
-
-    detailPromoPage: (req, res, next) => {
-        // récupérer l'id ciblé
-        const targetId = parseInt(req.params.id);
-
-        client.query(`SELECT * FROM promo WHERE ID = ${targetId}`, (err, data) => {
-          //  console.log("ERROR : ", err);
+            console.log("ERROR : ", err);
             // data contient plusieurs infos intéressantes : 
             //  - data.rowCount contient le NOMBRE de résultat
             //  - data.rows contient les vrais résultats. Bonne nouvelle : ces résultats sont des objets JS !!
-           // console.log(data.rows);
-            
-            const promo = data.rows[0];
-            console.log(promo);
-            //console.log(targetId);
+            console.log(data.rows);
 
-            client.query(`SELECT * FROM student WHERE promo_id = ${targetId}`, (err, data2) => {
-               // console.log("ERROR : ", err);
-                // data contient plusieurs infos intéressantes : 
-                //  - data.rowCount contient le NOMBRE de résultat
-                //  - data.rows contient les vrais résultats. Bonne nouvelle : ces résultats sont des objets JS !!
-              //  console.log(data2.rows);
-                
-             
-                      // récupérer la liste des étudiants de la promo
+            res.render('promosList', {
+                promos: data.rows,
+            });
+        });
+
+    },
+
+    detailPromoPage: (req, res, next) => {
+        const targetId = parseInt(req.params.id);
+        const query = `SELECT * FROM "promo" WHERE ID = ${targetId}`;
+        client.query(query, (err, data) => {
+            const promo = data.rows[0];
+            client.query(`SELECT * FROM "student" WHERE "promo_id" = ${targetId}`, (err, data2) => {
                 const students = data2.rows;
                 if (promo) {
                     res.render('promoDetails', {
@@ -75,22 +56,11 @@ const promoController = {
                         students
                     });
                 } else {
-                    // sinon, on veut renvoyer une 404.
-                    // pour ça, le plus simple c'est de laisser express continuer la chaine de middleware
                     next();
                 }
-    
-                
-             });
-
-
-            
-         });
-
-
-       
+            });
+        });
     }
-    
 };
 
 module.exports = promoController;

@@ -10,16 +10,16 @@ const router = express.Router();
 
 // - créer des routes, y brancher des méthodes issues des controlleurs
 //   - page d'accueil : route '/'
-router.get('/', mainController.homePage );
+router.get('/', mainController.homePage);
 //   - liste des promos: route '/promos'
-router.get('/promos', promoController.allPromosPage );
+router.get('/promos', promoController.allPromosPage);
 //   - détail d'une promo: route '/promo/:id'
-router.get('/promo/:id', promoController.detailPromoPage );
+router.get('/promo/:id', promoController.detailPromoPage);
 
 
 // EN DERNIER : on met la fonction (c'est un middleware) qui gère les 404.
 // si aucune route ne capture l'url demandé, alors on tombera forcément dans cette fonction => et paf, message d'erreur
-router.use( mainController.notFound );
+router.use(mainController.notFound);
 
 
 // - exporter le router
